@@ -20,7 +20,7 @@ app.get('/',function(req,res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.post('/upload',(req,res) => {
+app.post('https://db-images-mixidev.herokuapp.com/upload',(req,res) => {
     let EDFile = req.files.file
     EDFile.mv(`./files/${EDFile.name}`,err => {
         if(err) return res.status(500).send({ message : err });
