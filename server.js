@@ -3,7 +3,13 @@ const fileUpload = require('express-fileupload');
 const serveIndex = require('serve-index'); 
 const path = require('path');
 
-const app = express();
+// const app = express();
+
+const jsonServer = require('json-server');
+const app = jsonServer.create();
+// const router = jsonServer.router('db.json');
+const middlewares = jsonServer.defaults();
+const port = process.env.PORT || 3000;
 
 app.use(fileUpload());
 app.use('/files', serveIndex(path.join(__dirname, '/files')));
@@ -23,4 +29,7 @@ app.post('/upload',(req,res) => {
     });
 });
 
-app.listen(3000,() => console.log('Corriendo'));
+app.use(middlewares);
+// app.use(router);
+
+app.listen(port);
